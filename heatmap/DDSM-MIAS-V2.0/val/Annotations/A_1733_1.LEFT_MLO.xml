@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<annotation>
+    <folder>images</folder>
+    <filename>A_1733_1.LEFT_MLO.jpg</filename>
+    <path>A_1733_1.LEFT_MLO.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>640</width>
+        <height>640</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>mass</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>411</xmin>
+            <ymin>397</ymin>
+            <xmax>504</xmax>
+            <ymax>457</ymax>
+        </bndbox>
+    </object>
+</annotation>

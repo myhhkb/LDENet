@@ -1,0 +1,35 @@
+===== COCOeval summarize() 输出 =====
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.08s).
+Accumulating evaluation results...
+DONE (t=0.02s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.376
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.849
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.278
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.309
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.421
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.340
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.440
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.478
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.481
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.453
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.525
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.368
+
+
+===== 解析后的 summary JSON =====
+{
+  "AP": 0.37599106340071553,
+  "AP@0.50": 0.8491424873223388,
+  "AP@0.75": 0.2776869370112127,
+  "AP_small": 0.30911088697996153,
+  "AP_medium": 0.4211324512851038,
+  "AP_large": 0.34040263117549463,
+  "AR@1": 0.4396226415094341,
+  "AR@10": 0.4783018867924528,
+  "AR@100": 0.4811320754716982,
+  "AR_small": 0.45294117647058824,
+  "AR_medium": 0.5253731343283582,
+  "AR_large": 0.36818181818181817
+}

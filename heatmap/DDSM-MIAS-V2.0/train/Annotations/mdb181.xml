@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<annotation>
+    <folder>images</folder>
+    <filename>mdb181.jpg</filename>
+    <path>mdb181.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>640</width>
+        <height>640</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>mass</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>293</xmin>
+            <ymin>388</ymin>
+            <xmax>361</xmax>
+            <ymax>433</ymax>
+        </bndbox>
+    </object>
+</annotation>

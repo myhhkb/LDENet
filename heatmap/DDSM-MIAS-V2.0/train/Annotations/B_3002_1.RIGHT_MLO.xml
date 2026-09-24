@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<annotation>
+    <folder>images</folder>
+    <filename>B_3002_1.RIGHT_MLO.jpg</filename>
+    <path>B_3002_1.RIGHT_MLO.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>640</width>
+        <height>640</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>mass</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>336</xmin>
+            <ymin>431</ymin>
+            <xmax>530</xmax>
+            <ymax>572</ymax>
+        </bndbox>
+    </object>
+</annotation>

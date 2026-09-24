@@ -1,0 +1,12 @@
+train: D:\code\Paper\yolo\ultralytics-main\ultralytics\yolo\v8\detect\datasets\v8\train\images
+val: D:\code\Paper\yolo\ultralytics-main\ultralytics\yolo\v8\detect\datasets\v8\valid\images
+
+nc: 1
+names: ['tumour']
+
+roboflow:
+  workspace: scuec
+  project: only-train-val
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/scuec/only-train-val/dataset/1

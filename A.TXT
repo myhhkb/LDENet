@@ -1,0 +1,14 @@
+yolo11
+runs/xiaorong_module/yolo11/weights/best.pt
+yolo12
+runs/YOLO12/yolo12-origin/weights/best.pt
+GEIT_DIMB_SEAM_FMIOU
+runs/xiaorong_module/GEIT_DIMB_SEAM_FMIOU/yolo11/weights/best.pt
+hyper-yolo
+runs/YOLO11/hyper-yolo/weights/best.pt
+
+
+runs/xiaorong_module/yolo11-GEIT/weights/best.pt
+runs/xiaorong_module/yolo11-GEIT-DIMB/weights/best.pt
+runs/xiaorong_module/yolo11_DIMB_SAEHead/weights/best.pt
+runs/xiaorong_module/yolo11_GEIT_SEAHead/weights/best.pt
