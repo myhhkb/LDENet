@@ -1,278 +1,214 @@
-<div align="center">
-  <p>
-    <a href="https://www.ultralytics.com/events/yolovision" target="_blank">
-      <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/yolov8/banner-yolov8.png" alt="YOLO Vision banner"></a>
-  </p>
+# LDE-Net
 
-[中文](https://docs.ultralytics.com/zh) | [한국어](https://docs.ultralytics.com/ko) | [日本語](https://docs.ultralytics.com/ja) | [Русский](https://docs.ultralytics.com/ru) | [Deutsch](https://docs.ultralytics.com/de) | [Français](https://docs.ultralytics.com/fr) | [Español](https://docs.ultralytics.com/es) | [Português](https://docs.ultralytics.com/pt) | [Türkçe](https://docs.ultralytics.com/tr) | [Tiếng Việt](https://docs.ultralytics.com/vi) | [العربية](https://docs.ultralytics.com/ar) <br>
+### 用于乳腺 X 线肿块检测的轻量级动态卷积核与边缘引导网络
 
-<div>
-    <a href="https://github.com/ultralytics/ultralytics/actions/workflows/ci.yaml"><img src="https://github.com/ultralytics/ultralytics/actions/workflows/ci.yaml/badge.svg" alt="Ultralytics CI"></a>
-    <a href="https://zenodo.org/badge/latestdoi/264818686"><img src="https://zenodo.org/badge/264818686.svg" alt="Ultralytics YOLO Citation"></a>
-    <a href="https://hub.docker.com/r/ultralytics/ultralytics"><img src="https://img.shields.io/docker/pulls/ultralytics/ultralytics?logo=docker" alt="Ultralytics Docker Pulls"></a>
-    <a href="https://discord.com/invite/ultralytics"><img alt="Ultralytics Discord" src="https://img.shields.io/discord/1089800235347353640?logo=discord&logoColor=white&label=Discord&color=blue"></a>
-    <a href="https://community.ultralytics.com/"><img alt="Ultralytics Forums" src="https://img.shields.io/discourse/users?server=https%3A%2F%2Fcommunity.ultralytics.com&logo=discourse&label=Forums&color=blue"></a>
-    <a href="https://reddit.com/r/ultralytics"><img alt="Ultralytics Reddit" src="https://img.shields.io/reddit/subreddit-subscribers/ultralytics?style=flat&logo=reddit&logoColor=white&label=Reddit&color=blue"></a>
-    <br>
-    <a href="https://console.paperspace.com/github/ultralytics/ultralytics"><img src="https://assets.paperspace.io/img/gradient-badge.svg" alt="Run Ultralytics on Gradient"></a>
-    <a href="https://colab.research.google.com/github/ultralytics/ultralytics/blob/main/examples/tutorial.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Ultralytics In Colab"></a>
-    <a href="https://www.kaggle.com/ultralytics/yolov8"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open Ultralytics In Kaggle"></a>
-</div>
-<br>
+[English](README.md) | [简体中文](README.zh-CN.md)
 
-[Ultralytics](https://www.ultralytics.com/) [YOLO11](https://github.com/ultralytics/ultralytics) 是一个尖端的、最先进（SOTA）的模型，基于之前 YOLO 版本的成功，并引入了新功能和改进以进一步提升性能和灵活性。YOLO11 被设计得快速、准确且易于使用，是进行广泛对象检测和跟踪、实例分割、图像分类和姿态估计任务的理想选择。
+本仓库为论文 **LDE-Net: A lightweight dynamic kernel and edge-guided network for mammographic mass detection** 的配套代码。
 
-我们希望这里的资源能帮助你充分利用 YOLO。请浏览 Ultralytics <a href="https://docs.ultralytics.com/">文档</a> 以获取详细信息，在 <a href="https://github.com/ultralytics/ultralytics/issues/new/choose">GitHub</a> 上提出问题或讨论，成为 Ultralytics <a href="https://discord.com/invite/ultralytics">Discord</a>、<a href="https://reddit.com/r/ultralytics">Reddit</a> 和 <a href="https://community.ultralytics.com/">论坛</a> 的成员！
+**作者：杨畅、彭婧、姚为、徐胜舟。**
 
-想申请企业许可证，请完成 [Ultralytics Licensing](https://www.ultralytics.com/license) 上的表单。
+LDE-Net 基于 YOLO11，通过动态特征提取、多尺度边缘传递、分类与回归分支注意力以及几何回归损失，实现乳腺 X 线图像中的肿块检测。
 
-<img width="100%" src="https://github.com/user-attachments/assets/a311a4ed-bbf2-43b5-8012-5f183a28a845" alt="YOLO11 performance plots"></a>
+## 方法组成
 
-<div align="center">
-  <a href="https://github.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="2%" alt="Ultralytics GitHub"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="2%" alt="Ultralytics LinkedIn"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="2%" alt="Ultralytics Twitter"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://youtube.com/ultralytics?sub_confirmation=1"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-youtube.png" width="2%" alt="Ultralytics YouTube"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://www.tiktok.com/@ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-tiktok.png" width="2%" alt="Ultralytics TikTok"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://ultralytics.com/bilibili"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-bilibili.png" width="2%" alt="Ultralytics BiliBili"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://discord.com/invite/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-discord.png" width="2%" alt="Ultralytics Discord"></a>
-</div>
-</div>
+- **DIMB（动态 inception 混合模块）：** 根据输入特征，动态融合方形、水平和垂直深度卷积分支。
+- **EITM（边缘信息传递模块）：** 利用 Sobel 算子和多尺度最大池化，将浅层边界信息传递至深层特征。
+- **SEAHead（分离增强注意力检测头）：** 分别对分类和回归分支进行特征重标定。
+- **FMIoU 损失：** 结合重叠度重映射和双角点距离惩罚，默认参数为 `d=0.0`、`u=0.95`。
 
-## <div align="center">文档</div>
+## 论文结果
 
-请参阅下方的快速开始安装和使用示例，并查看我们的 [文档](https://docs.ultralytics.com/) 以获取有关训练、验证、预测和部署的完整文档。
+在 **DDSM/MIAS** 测试集上，Precision、Recall、F1、mAP@50 和 mAP@50:95 分别为 **86.9%、79.1%、82.8%、85.8% 和 48.5%**。模型参数量为 **2.6 M**，计算量为 **6.6 GFLOPs**；在 NVIDIA GeForce RTX 4070 SUPER 上报告的推理速度为 **247.4 frames/s**。
 
-<details open>
-<summary>安装</summary>
+在独立的 **INbreast** 测试集（**103 幅图像、106 个标注病灶**）上，上述五项指标分别为 **89.7%、80.9%、85.1%、86.6% 和 39.2%**。
 
-在 [**Python>=3.8**](https://www.python.org/) 环境中使用 [**PyTorch>=1.8**](https://pytorch.org/get-started/locally/) 通过 pip 安装包含所有[依赖项](https://github.com/ultralytics/ultralytics/blob/main/pyproject.toml) 的 ultralytics 包。
+## 核心代码
 
-[![PyPI - Version](https://img.shields.io/pypi/v/ultralytics?logo=pypi&logoColor=white)](https://pypi.org/project/ultralytics/) [![Downloads](https://static.pepy.tech/badge/ultralytics)](https://pepy.tech/project/ultralytics) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ultralytics?logo=python&logoColor=gold)](https://pypi.org/project/ultralytics/)
+完整模型配置：
+
+[`ultralytics/cfg/models/end/MODULES/yolo11_DIMB_GEIT_SEAHead_FMIOU.yaml`](ultralytics/cfg/models/end/MODULES/yolo11_DIMB_GEIT_SEAHead_FMIOU.yaml)
+
+源码保留了开发阶段的类名，对应关系如下：
+
+- **DIMB：** [`block.py`](ultralytics/nn/extra_modules/block.py) 中的 `DynamicInceptionDWConv2d`、`DynamicInceptionMixer`、`DynamicIncMixerBlock` 和 `C3k2_DCMB`。
+- **EITM：** 同文件中的 `SobelConv`、`MutilScaleEdgeInfoGenetator` 和 `ConvEdgeFusion`。
+- **SEAHead：** [`head.py`](ultralytics/nn/extra_modules/head.py) 中的 `Detect_SEAM`，以及 `block.py` 中的 `SEAM`。
+- **FMIoU：** [`metrics.py`](ultralytics/utils/metrics.py) 中的 `bbox_focaler_mpdiou`，由 [`loss.py`](ultralytics/utils/loss.py) 中的 `BboxLoss` 调用。
+
+模块、损失函数和池化方式的对比配置分别位于 [`MODULES`](ultralytics/cfg/models/end/MODULES)、[`LOSS`](ultralytics/cfg/models/end/LOSS) 和 [`AVG_MAX`](ultralytics/cfg/models/end/AVG_MAX)。损失函数由 `BboxLoss` 中的实现决定，单独更换 YAML 文件名不会切换损失。当前代码已通过 `self.use_wiseiou = False` 启用 FMIoU。
+
+## 环境与安装
+
+论文实验环境为 **Python 3.10.14、PyTorch 2.2.2、torchvision 0.17.2、CUDA 12.1**。仓库内 Ultralytics 代码基于 **8.3.9** 版本。
 
 ```bash
-pip install ultralytics
+git clone https://github.com/myhhkb/LDENet.git
+cd LDENet
+conda create -n ldenet python=3.10.14 -y
+conda activate ldenet
+python -m pip install torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cu121
+python -m pip install "numpy<2" "opencv-python<4.12"
+python -m pip install timm==1.0.7 einops==0.8.1 efficientnet-pytorch==0.7.1 pytorch-wavelets==1.3.0 PyWavelets==1.8.0
+python -m pip install -e .
 ```
 
-有关其他安装方法，包括 [Conda](https://anaconda.org/conda-forge/ultralytics)、[Docker](https://hub.docker.com/r/ultralytics/ultralytics) 和 Git，请参阅 [快速开始指南](https://docs.ultralytics.com/quickstart/)。
+PyTorch 安装命令参考[官方历史版本说明](https://pytorch.org/get-started/previous-versions/)。使用可编辑安装加载本仓库中的自定义模块。
 
-[![Conda Version](https://img.shields.io/conda/vn/conda-forge/ultralytics?logo=condaforge)](https://anaconda.org/conda-forge/ultralytics) [![Docker Image Version](https://img.shields.io/docker/v/ultralytics/ultralytics?sort=semver&logo=docker)](https://hub.docker.com/r/ultralytics/ultralytics)
+仓库还保留了其他实验骨干网络与算子。根据实际导入的模块，可能需要安装对应依赖或编译 CUDA 扩展；这些扩展并未全部列入 `pyproject.toml`，安装时参考相应模块附带的构建说明。
 
-</details>
-
-<details open>
-<summary>使用</summary>
-
-### CLI
-
-YOLO 可以直接在命令行接口（CLI）中使用 `yolo` 命令：
-
-```bash
-yolo predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
-```
-
-`yolo` 可以用于各种任务和模式，并接受额外参数，例如 `imgsz=640`。请参阅 YOLO [CLI 文档](https://docs.ultralytics.com/usage/cli/) 以获取示例。
-
-### Python
-
-YOLO 也可以直接在 Python 环境中使用，并接受与上述 CLI 示例中相同的[参数](https://docs.ultralytics.com/usage/cfg/)：
+在项目根目录检查模型：
 
 ```python
 from ultralytics import YOLO
 
-# 加载模型
-model = YOLO("yolo11n.pt")
-
-# 训练模型
-train_results = model.train(
-    data="coco8.yaml",  # 数据集 YAML 路径
-    epochs=100,  # 训练轮次
-    imgsz=640,  # 训练图像尺寸
-    device="cpu",  # 运行设备，例如 device=0 或 device=0,1,2,3 或 device=cpu
+model = YOLO(
+    "ultralytics/cfg/models/end/MODULES/yolo11_DIMB_GEIT_SEAHead_FMIOU.yaml"
 )
-
-# 评估模型在验证集上的性能
-metrics = model.val()
-
-# 在图像上执行对象检测
-results = model("path/to/image.jpg")
-results[0].show()
-
-# 将模型导出为 ONNX 格式
-path = model.export(format="onnx")  # 返回导出模型的路径
+model.info()
 ```
 
-请参阅 YOLO [Python 文档](https://docs.ultralytics.com/usage/python/) 以获取更多示例。
+## 数据准备
 
-</details>
+使用 YOLO 检测标注格式，类别为 `tumor`，类别编号为 `0`。每幅图像对应一个同名 `.txt` 文件，每个肿块占一行：
 
-## <div align="center">模型</div>
+```text
+class_id x_center y_center width height
+```
 
-YOLO11 [检测](https://docs.ultralytics.com/tasks/detect/)、[分割](https://docs.ultralytics.com/tasks/segment/) 和 [姿态](https://docs.ultralytics.com/tasks/pose/) 模型在 [COCO](https://docs.ultralytics.com/datasets/detect/coco/) 数据集上进行预训练，这些模型可在此处获得，此外还有在 [ImageNet](https://docs.ultralytics.com/datasets/classify/imagenet/) 数据集上预训练的 YOLO11 [分类](https://docs.ultralytics.com/tasks/classify/) 模型。所有检测、分割和姿态模型均支持 [跟踪](https://docs.ultralytics.com/modes/track/) 模式。
+中心坐标和宽高均按图像尺寸归一化。目录示例：
 
-<img width="1024" src="https://raw.githubusercontent.com/ultralytics/assets/main/im/banner-tasks.png" alt="Ultralytics YOLO supported tasks">
+```text
+breast_dataset/
+  images/
+    train/
+    val/
+    test/
+  labels/
+    train/
+    val/
+    test/
+```
 
-所有[模型](https://github.com/ultralytics/ultralytics/tree/main/ultralytics/cfg/models)在首次使用时自动从最新的 Ultralytics [发布](https://github.com/ultralytics/assets/releases)下载。
+创建 `data.yaml`：
 
-<details open><summary>检测 (COCO)</summary>
+```yaml
+path: /absolute/path/to/breast_dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names: [tumor]
+```
 
-请参阅 [检测文档](https://docs.ultralytics.com/tasks/detect/) 以获取使用这些在 [COCO](https://docs.ultralytics.com/datasets/detect/coco/) 数据集上训练的模型的示例，其中包含 80 个预训练类别。
+现有 [`b_data.yaml`](ultralytics/cfg/datasets/b_data.yaml) 和 [`a_data.yaml`](ultralytics/cfg/datasets/a_data.yaml) 分别对应 DDSM/MIAS 和 INbreast，使用前需修改为自己的数据路径，并为测试集增加 `test` 字段。
 
-| 模型                                                                                 | 尺寸<br><sup>(像素) | mAP<sup>val<br>50-95 | 速度<br><sup>CPU ONNX<br>(ms) | 速度<br><sup>T4 TensorRT10<br>(ms) | 参数<br><sup>(M) | FLOPs<br><sup>(B) |
-| ------------------------------------------------------------------------------------ | ------------------- | -------------------- | ----------------------------- | ---------------------------------- | ---------------- | ----------------- |
-| [YOLO11n](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt) | 640                 | 39.5                 | 56.1 ± 0.8                    | 1.5 ± 0.0                          | 2.6              | 6.5               |
-| [YOLO11s](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s.pt) | 640                 | 47.0                 | 90.0 ± 1.2                    | 2.5 ± 0.0                          | 9.4              | 21.5              |
-| [YOLO11m](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m.pt) | 640                 | 51.5                 | 183.2 ± 2.0                   | 4.7 ± 0.1                          | 20.1             | 68.0              |
-| [YOLO11l](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l.pt) | 640                 | 53.4                 | 238.6 ± 1.4                   | 6.2 ± 0.1                          | 25.3             | 86.9              |
-| [YOLO11x](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x.pt) | 640                 | 54.7                 | 462.8 ± 6.7                   | 11.3 ± 0.2                         | 56.9             | 194.9             |
+论文按患者划分数据：先按 **训练集与验证集合计∶测试集 = 8∶2** 划分，再将前者按 **训练集∶验证集 = 8∶2** 划分，总体比例约为 **64∶16∶20**。INbreast 仅用于独立外部测试。请从各数据集提供方获取数据，并在训练前完成划分。
 
-- **mAP<sup>val</sup>** 值针对单模型单尺度在 [COCO val2017](https://cocodataset.org/) 数据集上进行。 <br>复制命令 `yolo val detect data=coco.yaml device=0`
-- **速度**在使用 [Amazon EC2 P4d](https://aws.amazon.com/ec2/instance-types/p4/) 实例的 COCO 验证图像上平均。 <br>复制命令 `yolo val detect data=coco.yaml batch=1 device=0|cpu`
+## 训练
 
-</details>
+将以下代码保存为项目根目录下的 `train_lde.py`，运行 `python train_lde.py`。该示例指定完整 LDE-Net 配置，并从头训练。仓库根目录现有脚本为不同实验的入口，各自带有模型和数据路径。
 
-<details><summary>分割 (COCO)</summary>
+```python
+from ultralytics import YOLO
 
-请参阅 [分割文档](https://docs.ultralytics.com/tasks/segment/) 以获取使用这些在 [COCO-Seg](https://docs.ultralytics.com/datasets/segment/coco/) 数据集上训练的模型的示例，其中包含 80 个预训练类别。
+if __name__ == "__main__":
+    model = YOLO(
+        "ultralytics/cfg/models/end/MODULES/yolo11_DIMB_GEIT_SEAHead_FMIOU.yaml"
+    )
+    model.train(
+        data="data.yaml",
+        imgsz=640,
+        epochs=300,
+        batch=8,
+        optimizer="SGD",
+        lr0=0.01,
+        weight_decay=0.0005,
+        pretrained=False,
+        resume=False,
+        patience=0,
+        device=0,
+        workers=0,
+        amp=False,
+        project="runs/ldenet",
+        name="train",
+    )
+```
 
-| 模型                                                                                         | 尺寸<br><sup>(像素) | mAP<sup>box<br>50-95 | mAP<sup>mask<br>50-95 | 速度<br><sup>CPU ONNX<br>(ms) | 速度<br><sup>T4 TensorRT10<br>(ms) | 参数<br><sup>(M) | FLOPs<br><sup>(B) |
-| -------------------------------------------------------------------------------------------- | ------------------- | -------------------- | --------------------- | ----------------------------- | ---------------------------------- | ---------------- | ----------------- |
-| [YOLO11n-seg](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-seg.pt) | 640                 | 38.9                 | 32.0                  | 65.9 ± 1.1                    | 1.8 ± 0.0                          | 2.9              | 10.4              |
-| [YOLO11s-seg](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s-seg.pt) | 640                 | 46.6                 | 37.8                  | 117.6 ± 4.9                   | 2.9 ± 0.0                          | 10.1             | 35.5              |
-| [YOLO11m-seg](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-seg.pt) | 640                 | 51.5                 | 41.5                  | 281.6 ± 1.2                   | 6.3 ± 0.1                          | 22.4             | 123.3             |
-| [YOLO11l-seg](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l-seg.pt) | 640                 | 53.4                 | 42.9                  | 344.2 ± 3.2                   | 7.8 ± 0.2                          | 27.6             | 142.2             |
-| [YOLO11x-seg](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x-seg.pt) | 640                 | 54.7                 | 43.8                  | 664.5 ± 3.2                   | 15.8 ± 0.7                         | 62.1             | 319.0             |
+示例设置了网络结构和主要训练参数。数据增强及其他选项默认读取 [`default.yaml`](ultralytics/cfg/default.yaml)，可通过 `model.train(...)` 显式覆盖，按所运行的实验设置。
 
-- **mAP<sup>val</sup>** 值针对单模型单尺度在 [COCO val2017](https://cocodataset.org/) 数据集上进行。 <br>复制命令 `yolo val segment data=coco-seg.yaml device=0`
-- **速度**在使用 [Amazon EC2 P4d](https://aws.amazon.com/ec2/instance-types/p4/) 实例的 COCO 验证图像上平均。 <br>复制命令 `yolo val segment data=coco-seg.yaml batch=1 device=0|cpu`
+权重和日志保存在 `runs/ldenet/train/` 中；已有同名目录时会自动递增目录名。`runs/` 已排除在 Git 版本管理之外。
 
-</details>
+## 测试集 mAP 评估
 
-<details><summary>分类 (ImageNet)</summary>
+使用训练后的 LDE-Net 权重，并在数据 YAML 中配置 `test` 路径：
 
-请参阅 [分类文档](https://docs.ultralytics.com/tasks/classify/) 以获取使用这些在 [ImageNet](https://docs.ultralytics.com/datasets/classify/imagenet/) 数据集上训练的模型的示例，其中包含 1000 个预训练类别。
+```python
+from ultralytics import YOLO
 
-| 模型                                                                                         | 尺寸<br><sup>(像素) | acc<br><sup>top1 | acc<br><sup>top5 | 速度<br><sup>CPU ONNX<br>(ms) | 速度<br><sup>T4 TensorRT10<br>(ms) | 参数<br><sup>(M) | FLOPs<br><sup>(B) at 640 |
-| -------------------------------------------------------------------------------------------- | ------------------- | ---------------- | ---------------- | ----------------------------- | ---------------------------------- | ---------------- | ------------------------ |
-| [YOLO11n-cls](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-cls.pt) | 224                 | 70.0             | 89.4             | 5.0 ± 0.3                     | 1.1 ± 0.0                          | 1.6              | 3.3                      |
-| [YOLO11s-cls](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s-cls.pt) | 224                 | 75.4             | 92.7             | 7.9 ± 0.2                     | 1.3 ± 0.0                          | 5.5              | 12.1                     |
-| [YOLO11m-cls](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-cls.pt) | 224                 | 77.3             | 93.9             | 17.2 ± 0.4                    | 2.0 ± 0.0                          | 10.4             | 39.3                     |
-| [YOLO11l-cls](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l-cls.pt) | 224                 | 78.3             | 94.3             | 23.2 ± 0.3                    | 2.8 ± 0.0                          | 12.9             | 49.4                     |
-| [YOLO11x-cls](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x-cls.pt) | 224                 | 79.5             | 94.9             | 41.4 ± 0.9                    | 3.8 ± 0.0                          | 28.4             | 110.4                    |
+if __name__ == "__main__":
+    model = YOLO("runs/ldenet/train/weights/best.pt")
+    metrics = model.val(
+        data="data.yaml",
+        split="test",
+        imgsz=640,
+        batch=1,
+        conf=0.001,
+        iou=0.70,
+        rect=False,
+        device=0,
+        project="runs/ldenet",
+        name="test",
+    )
+    print("mAP@50:", metrics.box.map50)
+    print("mAP@50:95:", metrics.box.map)
+```
 
-- **acc** 值为在 [ImageNet](https://www.image-net.org/) 数据集验证集上的模型准确率。 <br>复制命令 `yolo val classify data=path/to/ImageNet device=0`
-- **速度**在使用 [Amazon EC2 P4d](https://aws.amazon.com/ec2/instance-types/p4/) 实例的 ImageNet 验证图像上平均。 <br>复制命令 `yolo val classify data=path/to/ImageNet batch=1 device=0|cpu`
+较低的置信度截断值用于保留构建 mAP 精确率–召回率曲线所需的检测结果。论文中的固定阈值 Precision、Recall 和 F1 使用源域验证集选出的阈值，并将其固定用于测试。内置验证器汇总的 Precision 和 Recall 取自其最佳 F1 工作点，与固定阈值评估需要区分。
 
-</details>
+## 推理
 
-<details><summary>姿态 (COCO)</summary>
+将 `confidence_threshold` 设置为验证集选定的工作阈值：
 
-请参阅 [姿态文档](https://docs.ultralytics.com/tasks/pose/) 以获取使用这些在 [COCO-Pose](https://docs.ultralytics.com/datasets/pose/coco/) 数据集上训练的模型的示例，其中包含 1 个预训练类别（人）。
+```python
+from ultralytics import YOLO
 
-| 模型                                                                                         | 尺寸<br><sup>(像素) | mAP<sup>pose<br>50-95 | mAP<sup>pose<br>50 | 速度<br><sup>CPU ONNX<br>(ms) | 速度<br><sup>T4 TensorRT10<br>(ms) | 参数<br><sup>(M) | FLOPs<br><sup>(B) |
-| -------------------------------------------------------------------------------------------- | ------------------- | --------------------- | ------------------ | ----------------------------- | ---------------------------------- | ---------------- | ----------------- |
-| [YOLO11n-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-obb.pt) | 1024                | 78.4                  | 117.6 ± 0.8        | 4.4 ± 0.0                     | 2.7                                | 17.2             |
-| [YOLO11s-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s-obb.pt) | 1024                | 79.5                  | 219.4 ± 4.0        | 5.1 ± 0.0                     | 9.7                                | 57.5             |
-| [YOLO11m-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-obb.pt) | 1024                | 80.9                  | 562.8 ± 2.9        | 10.1 ± 0.4                    | 20.9                               | 183.5            |
-| [YOLO11l-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l-obb.pt) | 1024                | 81.0                  | 712.5 ± 5.0        | 13.5 ± 0.6                    | 26.2                               | 232.0            |
-| [YOLO11x-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x-obb.pt) | 1024                | 81.3                  | 1408.6 ± 7.7       | 28.6 ± 1.0                    | 58.8                               | 520.2            |
+if __name__ == "__main__":
+    confidence_threshold = 0.25  # 示例值，实际使用验证集选定的阈值。
+    model = YOLO("runs/ldenet/train/weights/best.pt")
+    model.predict(
+        source="path/to/mammograms",
+        imgsz=640,
+        conf=confidence_threshold,
+        iou=0.70,
+        save=True,
+        save_txt=True,
+        save_conf=True,
+        project="runs/ldenet",
+        name="predict",
+    )
+```
 
-- **mAP<sup>val</sup>** 值针对单模型单尺度在 [COCO Keypoints val2017](https://cocodataset.org/) 数据集上进行。 <br>复制命令 `yolo val pose data=coco-pose.yaml device=0`
-- **速度**在使用 [Amazon EC2 P4d](https://aws.amazon.com/ec2/instance-types/p4/) 实例的 COCO 验证图像上平均。 <br>复制命令 `yolo val pose data=coco-pose.yaml batch=1 device=0|cpu`
+仓库不包含 `runs/` 中的训练权重。根目录中的 `yolo11n.pt` 和 `yolov8n.pt` 是基线模型权重，不是训练后的 LDE-Net 权重。
 
-</details>
+## 引用
 
-<details><summary>OBB (DOTAv1)</summary>
+```bibtex
+@misc{yang2026ldenet,
+  title  = {{LDE-Net}: A lightweight dynamic kernel and edge-guided network for mammographic mass detection},
+  author = {Yang, Chang and Peng, Jing and Yao, Wei and Xu, Shengzhou},
+  year   = {2026},
+  url    = {https://github.com/myhhkb/LDENet}
+}
+```
 
-请参阅 [OBB 文档](https://docs.ultralytics.com/tasks/obb/) 以获取使用这些在 [DOTAv1](https://docs.ultralytics.com/datasets/obb/dota-v2/#dota-v10/) 数据集上训练的模型的示例，其中包含 15 个预训练类别。
+## 致谢与许可证
 
-| 模型                                                                                         | 尺寸<br><sup>(像素) | mAP<sup>test<br>50 | 速度<br><sup>CPU ONNX<br>(ms) | 速度<br><sup>T4 TensorRT10<br>(ms) | 参数<br><sup>(M) | FLOPs<br><sup>(B) |
-| -------------------------------------------------------------------------------------------- | ------------------- | ------------------ | ----------------------------- | ---------------------------------- | ---------------- | ----------------- |
-| [YOLO11n-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-obb.pt) | 1024                | 78.4               | 117.56 ± 0.80                 | 4.43 ± 0.01                        | 2.7              | 17.2              |
-| [YOLO11s-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s-obb.pt) | 1024                | 79.5               | 219.41 ± 4.00                 | 5.13 ± 0.02                        | 9.7              | 57.5              |
-| [YOLO11m-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-obb.pt) | 1024                | 80.9               | 562.81 ± 2.87                 | 10.07 ± 0.38                       | 20.9             | 183.5             |
-| [YOLO11l-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l-obb.pt) | 1024                | 81.0               | 712.49 ± 4.98                 | 13.46 ± 0.55                       | 26.2             | 232.0             |
-| [YOLO11x-obb](https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x-obb.pt) | 1024                | 81.3               | 1408.63 ± 7.67                | 28.59 ± 0.96                       | 58.8             | 520.2             |
+本项目基于 [Ultralytics](https://github.com/ultralytics/ultralytics)，并使用了源码中注明出处的研究模块，感谢相关作者开放其实现。
 
-- **mAP<sup>test</sup>** 值针对单模型多尺度在 [DOTAv1](https://captain-whu.github.io/DOTA/index.html) 数据集上进行。 <br>复制命令 `yolo val obb data=DOTAv1.yaml device=0 split=test` 并提交合并结果到 [DOTA 评估](https://captain-whu.github.io/DOTA/evaluation.html)。
-- **速度**在使用 [Amazon EC2 P4d](https://aws.amazon.com/ec2/instance-types/p4/) 实例的 DOTAv1 验证图像上平均。 <br>复制命令 `yolo val obb data=DOTAv1.yaml batch=1 device=0|cpu`
+仓库保留上游 [AGPL-3.0 许可证](LICENSE)。第三方组件保留各自的版权声明与许可条款。
 
-</details>
+## 联系方式
 
-## <div align="center">集成</div>
-
-我们与领先的 AI 平台的关键集成扩展了 Ultralytics 产品的功能，增强了数据集标记、训练、可视化和模型管理等任务的能力。了解 Ultralytics 如何与 [Roboflow](https://roboflow.com/?ref=ultralytics)、ClearML、[Comet](https://bit.ly/yolov8-readme-comet)、Neural Magic 和 [OpenVINO](https://docs.ultralytics.com/integrations/openvino/) 合作，优化您的 AI 工作流程。
-
-<br>
-<a href="https://www.ultralytics.com/hub" target="_blank">
-<img width="100%" src="https://github.com/ultralytics/assets/raw/main/yolov8/banner-integrations.png" alt="Ultralytics active learning integrations"></a>
-<br>
-<br>
-
-<div align="center">
-  <a href="https://roboflow.com/?ref=ultralytics">
-    <img src="https://github.com/ultralytics/assets/raw/main/partners/logo-roboflow.png" width="10%" alt="Roboflow logo"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="15%" height="0" alt="space">
-  <a href="https://clear.ml/">
-    <img src="https://github.com/ultralytics/assets/raw/main/partners/logo-clearml.png" width="10%" alt="ClearML logo"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="15%" height="0" alt="space">
-  <a href="https://bit.ly/yolov8-readme-comet">
-    <img src="https://github.com/ultralytics/assets/raw/main/partners/logo-comet.png" width="10%" alt="Comet ML logo"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="15%" height="0" alt="space">
-  <a href="https://bit.ly/yolov5-neuralmagic">
-    <img src="https://github.com/ultralytics/assets/raw/main/partners/logo-neuralmagic.png" width="10%" alt="NeuralMagic logo"></a>
-</div>
-
-|                                                           Roboflow                                                           |                                                 ClearML ⭐ NEW                                                  |                                                                       Comet ⭐ NEW                                                                        |                                          Neural Magic ⭐ NEW                                           |
-| :--------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: |
-| Label and export your custom datasets directly to YOLO11 for training with [Roboflow](https://roboflow.com/?ref=ultralytics) | Automatically track, visualize and even remotely train YOLO11 using [ClearML](https://clear.ml/) (open-source!) | Free forever, [Comet](https://bit.ly/yolov5-readme-comet) lets you save YOLO11 models, resume training, and interactively visualize and debug predictions | Run YOLO11 inference up to 6x faster with [Neural Magic DeepSparse](https://bit.ly/yolov5-neuralmagic) |
-
-## <div align="center">Ultralytics HUB</div>
-
-体验无缝 AI 使用 [Ultralytics HUB](https://www.ultralytics.com/hub) ⭐，一个集数据可视化、YOLO11 🚀 模型训练和部署于一体的解决方案，无需编写代码。利用我们最先进的平台和用户友好的 [Ultralytics 应用](https://www.ultralytics.com/app-install)，将图像转换为可操作见解，并轻松实现您的 AI 愿景。免费开始您的旅程！
-
-<a href="https://www.ultralytics.com/hub" target="_blank">
-<img width="100%" src="https://github.com/ultralytics/assets/raw/main/im/ultralytics-hub.png" alt="Ultralytics HUB preview image"></a>
-
-## <div align="center">贡献</div>
-
-我们欢迎您的意见！没有社区的帮助，Ultralytics YOLO 就不可能实现。请参阅我们的 [贡献指南](https://docs.ultralytics.com/help/contributing/) 开始，并填写我们的 [调查问卷](https://www.ultralytics.com/survey?utm_source=github&utm_medium=social&utm_campaign=Survey) 向我们提供您体验的反馈。感谢所有贡献者 🙏！
-
-<!-- SVG image from https://opencollective.com/ultralytics/contributors.svg?width=990 -->
-
-<a href="https://github.com/ultralytics/ultralytics/graphs/contributors">
-<img width="100%" src="https://github.com/ultralytics/assets/raw/main/im/image-contributors.png" alt="Ultralytics open-source contributors"></a>
-
-## <div align="center">许可</div>
-
-Ultralytics 提供两种许可选项以适应各种用例：
-
-- **AGPL-3.0 许可**：这是一个 [OSI 批准](https://opensource.org/license) 的开源许可，适合学生和爱好者，促进开放协作和知识共享。有关详细信息，请参阅 [LICENSE](https://github.com/ultralytics/ultralytics/blob/main/LICENSE) 文件。
-- **企业许可**：专为商业使用设计，此许可允许将 Ultralytics 软件和 AI 模型无缝集成到商业产品和服务中，无需满足 AGPL-3.0 的开源要求。如果您的场景涉及将我们的解决方案嵌入到商业产品，请通过 [Ultralytics Licensing](https://www.ultralytics.com/license) 联系我们。
-
-## <div align="center">联系</div>
-
-如需 Ultralytics 的错误报告和功能请求，请访问 [GitHub Issues](https://github.com/ultralytics/ultralytics/issues)。成为 Ultralytics [Discord](https://discord.com/invite/ultralytics)、[Reddit](https://www.reddit.com/r/ultralytics/) 或 [论坛](https://community.ultralytics.com/) 的成员，提出问题、分享项目、探讨学习讨论，或寻求所有 Ultralytics 相关的帮助！
-
-<br>
-<div align="center">
-  <a href="https://github.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="3%" alt="Ultralytics GitHub"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="3%" alt="Ultralytics LinkedIn"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="3%" alt="Ultralytics Twitter"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://youtube.com/ultralytics?sub_confirmation=1"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-youtube.png" width="3%" alt="Ultralytics YouTube"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://www.tiktok.com/@ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-tiktok.png" width="3%" alt="Ultralytics TikTok"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://ultralytics.com/bilibili"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-bilibili.png" width="3%" alt="Ultralytics BiliBili"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://discord.com/invite/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-discord.png" width="3%" alt="Ultralytics Discord"></a>
-</div>
+- **杨畅：** [2024120443@mail.scuec.edu.cn](mailto:2024120443@mail.scuec.edu.cn)
+- **徐胜舟（通讯作者）：** [xushengzhou@scuec.edu.cn](mailto:xushengzhou@scuec.edu.cn)
